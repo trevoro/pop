@@ -1,0 +1,58 @@
+<h3>Effort by Product Objective</h3>
+
+<div class="row lead">
+	<div class="col-md-3">
+		<%= render(:partial => 'work_items/week_navigator',
+			:locals => {
+				pathPrev: analytics_objectives_path(:week => @weekPrev, :year => @yearPrev ),
+				pathNext: analytics_objectives_path(:week => @weekNext, :year => @yearNext )
+			}) %>
+	</div>
+</div>
+
+<div id="chart1">
+	<svg width='900' height='450'></svg>
+</div>
+
+<script>
+	var objectives = gon.multibar1[0];
+
+	var product_objectives = [
+		{
+			key: "Product Objectives",
+			values: objectives
+		}
+	];
+
+	nv.addGraph(function() {
+		var chart = nv.models.discreteBarChart()
+			.x(function(d) { return d.objective })
+			.y(function(d) { return d.allocation })
+			.showValues(false)
+			.duration(250)
+			.color(["#3333CC"])
+			.margin({"bottom":140})
+			;
+
+		chart.xAxis.rotateLabels(-45);
+		chart.xAxis.height(400);
+
+		chart.yAxis.tickFormat(d3.format(".0%"));
+
+		d3.select('#chart1 svg')
+			.datum(product_objectives)
+			.call(chart);
+
+		nv.utils.windowResize(chart.update);
+
+		d3.selectAll(".nv-bar").on("click",
+			function (d) {
+				location.href = "/work_items/objective?name=" + encodeURIComponent(d.objective);
+			}
+		);
+
+		return chart;
+	});
+
+
+</script>

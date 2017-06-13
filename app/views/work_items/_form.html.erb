@@ -1,0 +1,46 @@
+<%= form_for(@work_item) do |f| %>
+  <% if @work_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@work_item.errors.count, "error") %> prevented this work_item from being saved:</h2>
+
+      <ul>
+      <% @work_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :item_key %><br />
+    <%= f.text_field :item_key %>
+  </div>
+  <div class="field">
+      <%= f.label :team_id %><br />
+      <%= f.select :team_id, content_tag(:option,'(empty)',:value=>"")+options_from_collection_for_select(Team.sortedCategories, "id", "name", @work_item.team_id ) %>
+  </div>
+  <div class="field">
+    <%= f.label :summary %><br />
+    <%= f.text_area :summary %>
+  </div>
+  <div class="field">
+    <%= f.label :num_people %><br />
+    <%= f.text_field :num_people %>
+  </div>
+  <div class="field">
+	 <%= f.label :people %><br />
+	 <%= f.text_field :people %>
+  </div>
+  <p>
+	  <%= f.label "Import to week of:" %><br />
+	  <div class="week-picker"></div>
+	  <br/>
+	  <%= f.label :week %>:
+	  <%= f.text_field :week, value: Date.today.cweek-1  %>
+	  <%= f.label :year %>:
+	  <%= f.text_field :year, value: Date.today.year %>
+  </p>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

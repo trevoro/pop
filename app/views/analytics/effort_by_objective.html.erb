@@ -1,0 +1,52 @@
+<h3>Total Effort by Objective</h3>
+
+<div class="row lead">
+	<div class="col-md-4">
+	Time Span: <%= Date::MONTHNAMES[@month] if @month > 0 %><%= ", " if @month > 0 %><%= @year %>
+	</div>
+	<div class="col-md-4">
+	<%= @total_effort %> person-weeks
+	</div>
+	<div class="col-md-4">
+	<%= @total_objectives %> objectives
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<ul class="nav nav-tabs" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link" data-toggle="tab" href="#chart" role="tab">Chart View</a>
+		  </li>
+		  <li class="nav-item active">
+		    <a class="nav-link active" data-toggle="tab" href="#table" role="tab">Table View</a>
+		  </li>
+		</ul>
+
+		<!-- Nav tabs -->
+		<div class="tab-content">
+		  <div class="tab-pane" id="chart" role="tabpanel">
+			  <svg id="chartSvg"></svg>
+			  <%= render :partial => "multiHorizontalBarChart", :locals => {:domId => "chartSvg"} %>
+		  </div>
+		  <div class="tab-pane active" id="table" role="tabpanel">
+			  <table class="table table-striped table-condensed">
+			  	<tr>
+			  		<th class="col-md-4">Objective</th>
+			  		<th class="col-md-1">Person-Weeks</th>
+					<th class="col-md-1">% Total Effort</th>
+			  	</tr>
+				<% @objectives_array.each do |o| %>
+				<tr>
+					<td><%= link_to o["label"], objective_work_items_path( :name => o["label"], :year => @year ) %></td>
+					<td><%= o["value"] %></td>
+					<td><%= ((o["value"].to_f / @total_effort) * 100).round(1) %></td>
+				</tr>
+				<% end %>
+		  </div>
+		</div>
+
+	</div>
+	<div class="col-md-3"></div>
+</div>

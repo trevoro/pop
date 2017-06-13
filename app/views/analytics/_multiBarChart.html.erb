@@ -1,0 +1,58 @@
+<div class="row">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-10 center-block text-center">
+		<h4><%= title if local_assigns[:title] %></h4>
+		<svg id="<%= local_assigns[:domId] ? domId : "chartMulti" %>"></svg>
+	</div>
+	<div class="col-md-1">
+	</div>
+</div>
+
+<script>
+
+	function buildMultiBarChart(){
+
+		var domId = "<%= local_assigns[:domId] ? "#" + domId : "#chartMulti" %>";
+		var chartDataIndex = <%= local_assigns[:chartDataIndex] ? chartDataIndex : 0 %>;
+		var disabledSeries = <%= local_assigns[:disabledSeriesIndex] ? "true" : "false" %>;
+
+		var objectives = gon.multibar1[ chartDataIndex ];
+
+		if( disabledSeries )
+		{
+			var disabledSeriesIndex = <%= local_assigns[:disabledSeriesIndex] ? disabledSeriesIndex : 0 %>;
+			objectives[disabledSeriesIndex].disabled = true;
+		}
+
+
+
+		var height = 550;
+
+		nv.addGraph(function() {
+		var chart = nv.models.multiBarChart()
+			.showControls(false)
+			.showLegend(true)
+			.height(height);
+
+			chart.tooltip.enabled( false );
+
+			chart.yAxis
+				.tickFormat(d3.format('d'));
+
+			d3.select( domId )
+				.datum(objectives)
+				.transition()
+				.duration(500)
+				.attr('height', height)
+				.call(chart);
+
+			nv.utils.windowResize(chart.update);
+
+			return chart;
+		});
+	};
+
+	buildMultiBarChart();
+
+</script>

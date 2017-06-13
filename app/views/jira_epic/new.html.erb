@@ -1,0 +1,32 @@
+<h3>JIRA Import</h3>
+
+<%= form_for @jira_epic_import, url: jira_epic_index_path do |sf| %>
+	<div class="container">
+		<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+			<div class="col-md-2">
+				<%= sf.label "Import Type:" %>
+				<%= sf.select :filter_type, [["Epic","epic"],["Filter","filter"]] %>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+			<div class="col-md-2">
+				<%= sf.label "JIRA ID:" %>
+				<%= sf.text_field :filter_id %>
+			</div>
+		</div>
+		<p>
+			<%= sf.label "Import to week of:" %><br />
+			<div class="week-picker"></div>
+			<br/>
+			<%= sf.label :week %>:
+			<%= sf.text_field :week, value: Date.today.cweek  %>
+			<%= sf.label :year %>:
+			<%= sf.text_field :year, value: Date.today.year %>
+		</p>
+		<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+			<div class="col-md-2">
+				<%= sf.submit "Get Epics" %>
+			</div>
+		</div>
+	</div>
+<% end %>

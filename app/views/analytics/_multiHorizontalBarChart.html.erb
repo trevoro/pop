@@ -1,0 +1,66 @@
+<% if !local_assigns[:dom_id] %>
+<div class="row">
+	<div class="col-md-3">
+	</div>
+	<div class="col-md-6 center-block text-center">
+		<h4><%= title if local_assigns[:title] %></h4>
+		<svg id="chartMulti" %>"></svg>
+	</div>
+	<div class="col-md-3">
+	</div>
+</div>
+<% end %>
+
+<script>
+
+	function buildMultiChart(){
+
+		var domId = "<%= local_assigns[:domId] ? "#" + domId : "#chartMulti" %>";
+		var chartDataIndex = <%= local_assigns[:chartDataIndex] ? chartDataIndex : 0 %>;
+
+		var objectives = gon.multibar1[ chartDataIndex ];
+
+		var width = 350;
+		var height = objectives[0].values.length * 40;
+
+		nv.addGraph(function() {
+		var chart = nv.models.multiBarHorizontalChart()
+			.x(function(d) { return d.label })
+			.y(function(d) { return d.value })
+			.margin({top: 30, right: 20, bottom: 50, left: 200})
+			.showValues(true)
+			.valueFormat(d3.format('d'))
+			.barColor(d3.scale.category20().range())
+			.showControls(false)
+			.showLegend(false)
+			.width(width)
+			.height(height);
+
+			chart.tooltip.enabled( false );
+
+			chart.yAxis
+				.tickFormat(d3.format('d'));
+
+			d3.select( domId )
+				.datum(objectives)
+				.transition()
+				.duration(500)
+				.attr('width', width)
+				.attr('height', height)
+				.call(chart);
+
+			nv.utils.windowResize(chart.update);
+
+			d3.selectAll(".nv-bar").on("click",
+				function (d) {
+					location.href = "/work_items/objective?name=" + encodeURIComponent(d.label);
+				}
+			);
+
+			return chart;
+		});
+	};
+
+	buildMultiChart();
+
+</script>

@@ -1,0 +1,22 @@
+// Place all the styles related to the projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$info-font-size: 14px;
+$info-font-weight: 400;
+
+.project-weeks
+{
+	width:60px;
+	text-align:right;
+	font-size: $info-font-size;
+	font-weight: $info-font-weight;
+}
+
+.project-weeks-spacer
+{
+	font-size: $info-font-size;
+	font-weight: $info-font-weight;
+	padding:5px;
+	text-align:center;
+}

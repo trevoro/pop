@@ -1,0 +1,16 @@
+<h3>People per Product</h3>
+
+<div class="row lead">
+	<div class="col-md-3">
+		<%= render(:partial => 'work_items/week_navigator',
+			:locals => {
+				pathPrev: analytics_products_path(:week => @weekPrev, :year => @yearPrev ),
+				pathNext: analytics_products_path(:week => @weekNext, :year => @yearNext )
+			}) %>
+	</div>
+	<div class="col-md-2">
+		<%= @people_weeks.to_s %> People
+	</div>
+</div>
+
+<%= render :partial => "pieChart", :locals => { property: "product" }%>

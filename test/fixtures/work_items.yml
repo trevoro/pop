@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_key: MyString
+  project: MyString
+  summary: MyText
+  status: MyString
+  statusCategory: 1
+
+two:
+  item_key: MyString
+  project: MyString
+  summary: MyText
+  status: MyString
+  statusCategory: 1

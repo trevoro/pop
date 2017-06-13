@@ -1,0 +1,37 @@
+<div>&nbsp;</div>
+<div class="panel-group" id="accordion">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#<%= project.id %>"><%= project.title %></a>
+			</h3>
+		</div>
+
+		<div id="<%= project.id %>" class="panel-collapse collapse">
+			<div class="list-group">
+				<div class="list-group-item">
+					<div class="row">
+						<div class="col-md-12">
+							<%= project.description %>
+						</div>
+					</div>
+				</div>
+
+				<p class="list-group-item"><%= link_to 'Edit', project_path(project) %> | <a href='<%= project.more_info %>'>More Info</a> | <%= link_to 'Delete', project_path(project), :data => { :confirm => 'Are you sure?' }, method: :delete, remote: true, class: 'delete_project' %></p>
+			</div>
+		</div>
+
+		<div class="panel-footer">
+
+		<% if state == 'current' || state == 'future' %>
+			<span class="project-weeks">week <%= project.weeks_invested %></span>
+		<% end %>
+
+		<% if state == 'completed' %>
+			<span class="project-weeks-spacer"> </span>
+		<% end %>
+
+		</div>
+
+	</div>
+</div>

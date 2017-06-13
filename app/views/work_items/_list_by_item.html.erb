@@ -1,0 +1,24 @@
+<table class="table table-striped table-condensed">
+	<tr>
+		<th class="col-md-1">Key</th>
+		<th class="col-md-1">Project</th>
+		<th class="col-md-3">Summary</th>
+		<th class="col-md-1">Objective</th>
+		<th class="col-md-1">People-Weeks</th>
+	</tr>
+
+	<% @work_item_summaries.each do |work_item| %>
+	<tr>
+		<td><%= link_to work_item.key, work_item.url %></td>
+		<td><%= work_item.project %></td>
+		<td><%= work_item.summary %></td>
+		<td><%= best_in_place work_item, :objective,
+			url: bulk_update_objective_work_items_path(
+				:key => work_item.key, :year => @year, :week => @week, :objective_old => work_item.objective ) %></td>
+		<td><%= link_to work_item.people_weeks, work_items_path(:item_key => work_item.key, :year => @year) %></td>
+	</tr>
+	<% end %>
+</table>
+<div>
+	<%= link_to "Expand All Work Items", work_items_path(:objective => @objective, :year => @year) %>
+</div>

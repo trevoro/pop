@@ -1,0 +1,15 @@
+<h3>Project Details</h3>
+<p>
+  <strong>Title:</strong>
+  <%= @project.title %>
+</p>
+
+<p>
+  <strong>Desription:</strong>
+  <%= @project.description %>
+</p>
+
+<p><strong><%= @project.start_date %></strong> to <strong><%= @project.end_date %></strong></p>
+
+<%= link_to 'Edit', edit_project_path(@project) %>
+| <%= link_to 'All Projects', projects_path %>

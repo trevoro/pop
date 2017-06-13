@@ -1,0 +1,13 @@
+<h3>Weekly Summary</h3>
+
+<%= link_to 'Create Report', reports_build_path( :week => @week, :year => @year ) %>
+
+<div class="row" style="margin-top: 20px; margin-bottom: 30px;">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-9">
+		<%= markdown(@full_summary) %>
+	</div>
+	<div class="col-md-1">
+	</div>
+</div>

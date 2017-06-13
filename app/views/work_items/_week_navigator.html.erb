@@ -1,0 +1,11 @@
+<% if @week > 0 %>
+	<%= link_to '<', (local_assigns[:pathPrev]) ?
+		pathPrev :
+		work_items_path(:week => @weekPrev, :year => @yearPrev )
+	%>
+	Week of: <%= Date.commercial(@year,@week,1) %>
+	<%= link_to '>', (local_assigns[:pathNext]) ?
+		pathNext :
+		work_items_path(:week => @weekNext, :year => @yearNext )
+	%>
+<% end %>

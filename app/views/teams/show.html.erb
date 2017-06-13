@@ -1,0 +1,23 @@
+<h3><%= @team.name %></h3>
+
+<form action="<%= teams_copy_epics_path %>" method="post">
+	<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+	<%= hidden_field_tag :id, @team.id %>
+	<button type="submit" class="btn btn-default">Copy Last Week's Epics</button>
+</form>
+
+<p>
+	<h4>Updates:</h4>
+	<div class="list-group">
+		<% @team_updates.each do |update| %>
+			<a href="#" class="list-group-item">
+				<span class="badge"><%= ((update.year.nil? || update.week.nil?) ? "(no date)" : Date.commercial(update.year, update.week, 1)) %></span>
+				<%= markdown(update.summary) %>
+			</a>
+		<% end %>
+ 	</div>
+</p>
+
+<br/>
+
+<%= link_to 'Edit', edit_team_path(@team) %>

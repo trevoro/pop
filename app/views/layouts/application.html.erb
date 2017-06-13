@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>pop</title>
+	<meta http-equiv="Content-Language" content="en">
+	<%= include_gon(:init => true) %>
+	<%= stylesheet_link_tag "application" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse bg-inverse fixed-top navbar-toggleable-sm">
+		<%= link_to 'Pop', root_path, {:class=>"navbar-brand"} %>
+		<p class="navbar-text navbar-toggler-right">
+			<% if current_user %>
+			<strong><%= current_user.name %></strong>
+			<%= link_to "Sign out", signout_path, id: "sign_out" %>
+			<% else %>
+			<%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
+			<% end %>
+		</p>
+		<ul class="nav navbar-nav">
+			<li class="divider-vertical nav-item"></li>
+
+			<li class="dropdown nav-item">
+
+				<a class="dropdown-toggle nav-link" href="#" id="teamsDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Teams</a>
+
+				<div class="dropdown-menu" aria-labelledby="teamsDropdownMenuLink">
+					<%= link_to 'Manage', teams_path, { :class=>"dropdown-item" } %>
+					<%= link_to 'Team Updates', team_updates_path, { :class=>"dropdown-item" } %>
+				</div>
+			</li>
+
+			<li class="dropdown nav-item">
+
+				<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link" id="epicsDropdownMenuLink" aria-haspopup="true" aria-expanded="false">Epics</a>
+				<div class="dropdown-menu" aria-labelledby="epicsDropdownMenuLink">
+					<%= link_to 'Last Week', work_items_path( :week => [1, DateTime.now.cweek-1].max ), { :class=>"dropdown-item" } %>
+					<%= link_to 'This Week', work_items_path( :week => DateTime.now.cweek ), { :class=>"dropdown-item" } %>
+					<%= link_to 'Import JIRA Epics', new_jira_epic_path, { :class=>"dropdown-item" } %>
+				</div>
+			</li>
+
+			<li class="dropdown nav-item">
+
+				<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link" id="projectsDropdownMenuLink" aria-haspopup="true" aria-expanded="false">Projects</a>
+
+				<div class="dropdown-menu" aria-labelledby="projectsDropdownMenuLink">
+					<% cache do %>
+					<% WorkItem.projects.each do |w| %>
+					<%= link_to w.project, analytics_project_effort_by_objective_path( :name => w.project ), { :class=>"dropdown-item" } %>
+					<% end %>
+					<% end %>
+				</div>
+
+			</li>
+
+			<li class="dropdown nav-item">
+				<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link" id="analyticsDropdownMenuLink" aria-haspopup="true" aria-expanded="false">Analytics</a>
+
+				<div class="dropdown-menu" aria-labelledby="analyticsDropdownMenuLink">
+					<%= link_to 'Relative Effort by Objective', analytics_objectives_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'People per Product', analytics_products_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'People per Product by Week', analytics_products_by_week_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'People per Project', analytics_projects_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'People per Project by Week', analytics_projects_by_week_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'Total Effort by Product', analytics_effort_by_product_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'Total Effort by Objective', analytics_effort_by_objective_path , { :class=>"dropdown-item" } %>
+					<%= link_to 'Weekly Summary', analytics_weekly_summary_path , { :class=>"dropdown-item" } %>
+				</div>
+			</li>
+			<li class="nav-item"></li>
+		</ul>
+	</nav>
+
+	<br/>
+
+	<div class="containter-fluid">
+		<div class="row-fluid">
+			<div class="span1"></div>
+			<div class="span10">
+				<%= yield %>
+				<div class="row-fluid">
+					<div class="span10">
+						<p id="notice"><%= notice %></p>
+						<p id="alert"><%= alert %></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="infobox"></div>
+</body>
+</html>

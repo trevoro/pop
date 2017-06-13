@@ -1,0 +1,27 @@
+<div class="row lead" style="margin-top: 20px; margin-bottom: 30px;">
+	<div class="col-md-3">
+		JIRA Epics
+	</div>
+	<% if @week > 0 && @people_weeks > 0 %>
+	<div class="col-md-2">
+		<%= @people_weeks.to_s %> People
+	</div>
+	<div class="col-md-2">
+		<%= @work_items.size.to_s %> Items
+	</div>
+	<div class="col-md-2">
+		<%= @objectives_count.to_s %> Objectives
+	</div>
+	<div class="col-md-3">
+		<%= (100*(@customer_facing_people_weeks.to_f / @people_weeks)).to_i %>% Customer Value
+	</div>
+	<% end %>
+</div>
+
+<div class="row lead">
+	<div class="col-md-3">
+		<%= render 'week_navigator' %>
+	</div>
+</div>
+
+<%= render 'list' %>

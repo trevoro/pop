@@ -1,0 +1,58 @@
+<div class="row">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-10 center-block text-center">
+		<h4><%= title if local_assigns[:title] %></h4>
+		<svg id="<%= local_assigns[:domId] ? domId : "chartStacked" %>"></svg>
+	</div>
+	<div class="col-md-1">
+	</div>
+</div>
+
+<script>
+
+	function buildStackedAreaChart()
+	{
+
+		var domId = "<%= local_assigns[:domId] ? "#" + domId : "#chartStacked" %>";
+		var chartDataIndex = <%= local_assigns[:chartDataIndex] ? chartDataIndex : 0 %>;
+
+		var teams = gon.stacked1[chartDataIndex];
+
+		var height = "<%= local_assigns[:chartHeight] ? chartHeight : 550 %>";
+
+		nv.addGraph(function() {
+			var chart = nv.models.stackedAreaChart()
+				.x(function(d) { return d[0] })
+				.y(function(d) { return d[1] })
+				.clipEdge(true)
+				.useInteractiveGuideline(true)
+				.height(height)
+				;
+
+		chart.xAxis
+			.showMaxMin(false)
+			.axisLabel("<%= local_assigns[:xAxisLabel] ? xAxisLabel : "" %>")
+			;
+
+		chart.yAxis
+			.tickFormat(d3.format('d'))
+			.axisLabel("<%= local_assigns[:yAxisLabel] ? yAxisLabel : "" %>")
+			;
+
+		d3.select(domId)
+			.datum(teams)
+			.transition()
+			.duration(500)
+			.attr("height",height)
+			.call(chart);
+
+		nv.utils.windowResize(chart.update);
+
+		return chart;
+		});
+	}
+
+	buildStackedAreaChart();
+
+</script>

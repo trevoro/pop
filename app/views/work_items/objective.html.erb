@@ -1,0 +1,5 @@
+<h3><%= @objective %> - <%= @total_effort %> Person-Weeks</h3>
+
+<%= render :partial => "analytics/stackedAreaChart", :locals => { xAxisLabel: "Week", yAxisLabel: "People" } %>
+
+<%= render 'list_by_item' %>

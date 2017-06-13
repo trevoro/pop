@@ -1,0 +1,39 @@
+<h3>Team Summary</h3>
+
+<%= render(:partial => "stackedAreaChart",
+	:locals =>
+		{
+			:title => "Effort by Objective over Time",
+			:domId => "stackedAreaChart_EffortByObjectiveOverTime",
+			:chartDataIndex => 0,
+			:chartHeight => 550,
+			:xAxisLabel => "Week",
+			:yAxisLabel => "People"
+		}) %>
+
+<%= render(:partial => "multiBarChart",
+	:locals =>
+		{
+			:title => "Team Objectives In Progress over Time",
+			:domId => "multiBarChart_TeamObjectivesInProgressOverTime",
+			:disabledSeriesIndex => 1,
+			:chartDataIndex => 1
+		}) %>
+
+<div class="row">
+	<div class="col-md-3">
+	</div>
+	<div class="col-md-6 center-block text-center">
+		<h4>Team's Total Effort by Objective</h4>
+		<svg id="multiBarHorizontalChart_TeamTotalEffortByObjective" %>"></svg>
+	</div>
+	<div class="col-md-3">
+	</div>
+</div>
+
+<%= render(:partial => "multiHorizontalBarChart",
+	:locals =>
+		{
+			:domId => "multiBarHorizontalChart_TeamTotalEffortByObjective",
+			:chartDataIndex => 0
+		}) %>

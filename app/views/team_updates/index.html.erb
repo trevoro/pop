@@ -1,0 +1,64 @@
+<h3>Team Updates</h3>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#team-update-modal">
+	Create New Update
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="team-update-modal" tabindex="-1" role="dialog" aria-labelledby="team-update-modalLabel" aria-hidden="true" data-show="false">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="team-update-modal-label">New Team Update</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<% @team_update = TeamUpdate.new %>
+				<%= render 'form', :team_update => @team_update %>
+			</div>
+			<div class="modal-footer">
+				<form id="team_update_modal" method="post" >
+					<button id="team_update_modal_dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save Update</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row lead">
+	<div class="col-md-3">
+		<%= render(:partial => 'work_items/week_navigator',
+			:locals => {
+				pathPrev: team_updates_path(:week => @weekPrev, :year => @yearPrev ),
+				pathNext: team_updates_path(:week => @weekNext, :year => @yearNext )
+			}) %>
+	</div>
+</div>
+
+<table class="table table-striped table-condensed">
+	<tr>
+		<th class="col-md-1">team</th>
+		<th class="col-md-1">year</th>
+		<th class="col-md-1">week</th>
+		<th class="col-md-5">update</th>
+		<th class="col-md-2">email</th>
+		<th class="col-md-2"></th>
+	</tr>
+
+	<% @team_updates.each do |team_update| %>
+	<tr>
+		<td><%= team_update.team.nil? ? "(empty)" : team_update.team.scopedName %></td>
+		<td><%= team_update.year %></td>
+		<td><%= team_update.week %></td>
+		<td><%= markdown(team_update.summary) %></td>
+		<td><%= team_update.email %></td>
+
+		<td><%= link_to 'Edit', edit_team_update_path(team_update) %> &nbsp;
+		<%= link_to 'Delete', team_update_path(team_update), data: {confirm: 'Are you sure?'}, method: :delete, remote: true, class: 'delete_update' %></td>
+	</tr>
+	<% end %>
+</table>

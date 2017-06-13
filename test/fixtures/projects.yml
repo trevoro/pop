@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  start_date: <%= 100.day.ago.to_s(:db) %>
+  end_date: <%= 10.day.ago.to_s(:db) %>
+  remote_id: MyString
+  more_info: MyString

@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Work Item <%= @work_item.id %></h3>
+<table class="table table-striped table-condensed">
+<tr><th>Key</th><th>Value</th></tr>
+<tr><td>key</td><td><%= @work_item.item_key %></td></tr>
+<tr><td>team</td><td><%= @work_item.team.nil? ? "" : @work_item.team.name %></td></tr>
+<tr><td>project</td><td><%= @work_item.project %></td></tr>
+<tr><td>summary</td><td><%= @work_item.summary %></td></tr>
+<tr><td>status</td><td><%= @work_item.status %></td></tr>
+<tr><td>week</td><td><%= @work_item.week %></td></tr>
+<tr><td>year</td><td><%= @work_item.year %></td></tr>
+<tr><td># people</td><td><%= @work_item.people.nil? ? 0 : @work_item.num_people %></td></tr>
+<tr><td>people</td><td><%= @work_item.people.nil? ? 0 : @work_item.people %></td></tr>
+<tr><td>reporter</td><td><%= @work_item.reporter %></td></tr>
+</table>
+
+<%= link_to 'Edit', edit_work_item_path(@work_item) %> | <%= link_to 'Delete', work_item_path(@work_item), data:{ confirm: 'Are you sure?' }, method: :delete %>
