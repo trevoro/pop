@@ -42,7 +42,7 @@ To get your development environment up and running:
 1. Clone this repository
 
 2. Switch to the root repo directory
-> cd pop2
+> cd pop
 
 3. Build docker images for the web server & database
 > docker-compose build
