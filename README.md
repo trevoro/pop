@@ -30,6 +30,10 @@ Answers to these questions give teams, leaders and executives audit-able visibil
 
 * **Google Sign-In**: PoP implements Google Sign-In to optionally enable better application security and audit logging
 
+## Documentation
+
+* This README contains most of the current documentation. Some additional supporting documentation is available at [https://hootsuite.github.io/pop/](https://hootsuite.github.io/pop/)
+
 ## Installation Pre-Requisites
 
 * Docker
