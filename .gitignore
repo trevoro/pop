@@ -16,3 +16,5 @@
 /config/database.yml
 /config/application.yml
 /config/jira-private.pem
+
+/public/assets/
