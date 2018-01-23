@@ -35,6 +35,8 @@ gem 'best_in_place'
 
 gem 'redcarpet'
 
+gem "paperclip", "~> 4.2"
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
