@@ -32,6 +32,5 @@ obj_seed = objectives.size
 			objective: objectives[obj_idx][0], customer_facing: objectives[obj_idx][1]  }
 		work_item = WorkItem.find_or_create_by( id: (week * 100) + idx, item_key: "TKT-" + idx.to_s )
 		work_item.update( wi )
-		puts week.to_s + " : " + idx.to_s
 	end
 end
