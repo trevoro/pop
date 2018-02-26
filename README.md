@@ -46,26 +46,43 @@ To get your development environment up and running:
 1. Clone this repository
 
 2. Switch to the root repo directory
-> cd pop
+
+```
+$ cd pop
+```
 
 3. Build docker images for the web server & database
-> docker-compose build
+
+```
+$ docker-compose build
+```
 
 4. Create a database configuration file
-> cp config/database.yml.sample config/database.yml
+
+```
+$ cp config/database.yml.sample config/database.yml
+```
 
 5. Create a database
-> docker-compose run web rake db:create
+
+```
+$ docker-compose run web rake db:create
+```
 
 6. Set up the database schema
-> docker-compose run web rake db:migrate
+    
+```
+$ docker-compose run web rake db:migrate
+```
 
 ## Runtime
 
 
 To run the application, start the docker images and mount the application file system
 
-> docker-compose up
+```
+$ docker-compose up
+```
 
 Your version of the app should now be visible at: http://localhost:3000
 
@@ -73,7 +90,9 @@ Your version of the app should now be visible at: http://localhost:3000
 
 To run tests on the Docker image:
 
-> docker-compose run web bin/rails test
+```
+$ docker-compose run web bin/rails test
+```
 
 ## Application Architecture
 
