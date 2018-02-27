@@ -29,6 +29,8 @@ Pop::Application.routes.draw do
       end
   end
 
+  resources :screenshots, only: [:new, :create, :index, :destroy]
+
   get 'analytics/objectives'
   get 'analytics/products'
   get 'analytics/products_by_week'

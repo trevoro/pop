@@ -1,0 +1,11 @@
+
+<tr>
+	<td><%= link_to image_tag(screenshot.image.url(:thumb), class: 'media-object'), screenshot.image.url, target: '_blank' %></td>
+	<td><%= screenshot.title %></td>
+	<td>
+		<a href="#" onclick="prompt('Press Ctrl + C, then Enter to copy to clipboard','<%= asset_url(screenshot.image.url(:large)) %>')">Click to Copy</a>
+	</td>
+	<td>
+		<%= link_to 'Delete', screenshot_path(screenshot), data: {confirm: 'Are you sure?'}, method: :delete, remote: true, class: 'delete_screenshot' %>
+	</td>
+</tr>
